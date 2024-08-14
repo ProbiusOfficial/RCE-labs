@@ -1,4 +1,5 @@
 <?php 
+include ("get_flag.php");
 /*
 # -*- coding: utf-8 -*-
 # @Author: 探姬
