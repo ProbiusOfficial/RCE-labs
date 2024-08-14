@@ -7,14 +7,16 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 5_C :  挑战关 --- 
+--- HelloCTF - RCE靶场 关卡 12 :  命令执行 - bash终端的无字母命令执行_真正的无字母 --- 
 
-刚才，学了什么来着！？
+目前已有成熟脚本：https://github.com/ProbiusOfficial/bashFuck
+
+扩展阅读：https://github.com/Bashfuscator/Bashfuscator
 
 */
 
 function hello_shell($cmd){
-    if(preg_match("/[b-zA-Z_@#%^&*:{}\-\+<>\"|`;\[\]]/", $cmd)){
+    if(preg_match("/[A-Za-z0-9\"%*+,-.\/:;>?@[\]^`|]/", $cmd)){
         die("WAF!");
     }
     system($cmd);

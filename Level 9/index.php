@@ -7,14 +7,14 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 9 :  命令执行 - bash终端的无字母命令执行_你真的懂二进制么？ --- 
+--- HelloCTF - RCE靶场 关卡 9 :  命令执行 - bash终端的无字母命令执行_$'\xxx' --- 
 
 目前已有成熟脚本：https://github.com/ProbiusOfficial/bashFuck
 
 */
 
 function hello_shell($cmd){
-    if(preg_match("/[A-Za-z2-9\"%*+,-.\/:;=>?@[\]^`|]/", $cmd)){
+    if(preg_match("/[A-Za-z\"%*+,-.\/:;=>?@[\]^`|]/", $cmd)){
         die("WAF!");
     }
     system($cmd);
