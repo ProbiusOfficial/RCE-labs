@@ -47,7 +47,7 @@ function start($act){
 
     $random_func = get_fun();
     
-    if($act == "r"){ /* 通过发送GET ?act=r 的方式可以重置当前选中的函数 —— 或者你可以自己想办法可控它x */
+    if($act == "r"){ /* 通过发送GET ?action=r 的方式可以重置当前选中的函数 —— 或者你可以自己想办法可控它x */
         session_unset();
         session_destroy(); 
     }

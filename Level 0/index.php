@@ -27,9 +27,9 @@ include ("get_flag.php");
 
 */
 
-$code = "include('flag.php');echo 'This will get the flag by eval PHP code'.\$flag;";
+$code = "include('flag.php');echo 'This will get the flag by eval PHP code: '.\$flag;";
 
-$bash = "echo 'This will get the flag by Linux bash command - cat /flag:';cat /flag";
+$bash = "echo 'This will get the flag by Linux bash command - cat /flag: ';cat /flag";
 
 eval($code);
 

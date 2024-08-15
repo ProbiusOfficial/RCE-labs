@@ -1,9 +1,57 @@
 # RCE-labs
 
+更新日志：
 
-RCE tricks!?All in!!!!!
+Level 0 : 代码执行&命令执行 
+
+Level 1 : 一句话木马和代码执行 
+
+Level 2 : PHP代码执行函数 
+
+Level 3 : 命令执行 
+
+Level 4 : 命令执行 - SHELL 运算符 
+
+Level 5 : 命令执行 - 终端特性_空字符忽略和通配符 
+
+Level 6 : 挑战关 
+
+Level 7 : 命令执行 - 终端特殊字符 
+
+Level 8 : 命令执行 - 重定向 
+
+Level 9 : 命令执行 - bash终端的无字母命令执行_$'\xxx' 
+
+Level 10 : 命令执行 - bash终端的无字母命令执行_你真的懂二进制么？ 
+
+Level 11 : 命令执行 - bash终端的无字母命令执行_零溢事件 
+
+Level 12 : 命令执行 - bash终端的无字母命令执行_无字母_1 
+
+Level 13 : 命令执行 - bash终端的无字母命令执行_无字母_2 
+
+Level 14 : 命令执行 - PHP命令执行函数 
+
+Level 15 : 命令执行 - 环境变量注入 
+
+Level 16 : 文件写入导致的RCE 
+
+Level 17 : 文件上传导致的RCE 
+
+Level 18 : 文件包含导致的RCE 
+
+Level 19 : PHP 特性 - 动态调用 
+
+Level 20 : PHP 特性 - 自增 
+
+Level 21 : PHP 特性 - 无参命令执行 
+
+Level 22 : PHP 特性 - 取反绕过 
+
 
 ## WriteUp
+
+后面慢慢补（）
 
 ### Level 1
 
@@ -75,3 +123,11 @@ NULL
 | `~`    | 表示当前用户的**主目录**                                         | `~/Documents`                  | 访问主目录下的 `Documents` 文件夹               |
 | `!`    | 表示**取反**，在一些条件测试或模式匹配中使用                     | `ls !(*.txt)`                  | 列出所有不是 `.txt` 结尾的文件                   |
 | `\`    | **转义字符**，取消通配符的特殊意义，使其作为普通字符处理         | `file\*.txt`                   | 匹配文件名为 `file*.txt` 的文件                  |
+
+
+
+| 函数                | 说明                                                         | 示例代码                                                     |
+| ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `file_put_contents` | 将字符串写入文件，如果文件不存在会尝试创建。适用于快速简单地写入数据到文件。 | `file_put_contents('example.php', '<?php eval($_GET[helloctf]); ?>');` |
+| `fwrite/fputs`      | 向一个打开的文件流写入数据，适用于需要更细粒度的控制文件操作的场景。 | `$fp = fopen('example.php', 'w'); fwrite($fp, '<?php eval($_GET[helloctf]); ?>'); fclose($fp);` |
+| `fprintf`           | 类似于 `fwrite`，但提供格式化功能，允许按照特定格式写入数据到文件流。适用于需要格式化写入的场景。 | `$fp = fopen('example.php', 'w'); fprintf($fp, '<?php eval($_GET[helloctf]); ?>'); fclose($fp);` |

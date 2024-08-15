@@ -9,7 +9,11 @@
 
 --- HelloCTF - RCE靶场 关卡 10 :  命令执行 - bash终端的无字母命令执行_你真的懂二进制么？ --- 
 
-目前已有成熟脚本：https://github.com/ProbiusOfficial/bashFuck
+题目已经拥有成熟脚本：https://github.com/ProbiusOfficial/bashFuck
+你也可以使用在线生成：https://probiusofficial.github.io/bashFuck/
+题目本身也提供一个/exp.php方便你使用
+
+本关卡的考点为终端中支持 $((2#binary)) 解析二进制数据。
 
 */
 
