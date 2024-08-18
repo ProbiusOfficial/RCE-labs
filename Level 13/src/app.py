@@ -7,6 +7,16 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def terminal():
     output = '''
+    
+    # -*- coding: utf-8 -*-
+    # @Author: 探姬
+    # @Date:   2024-08-11 14:34
+    # @Repo:   github.com/ProbiusOfficial/RCE-labs
+    # @email:  admin@hello-ctf.com
+    # @link:   hello-ctf.com
+    
+    --- HelloCTF - RCE靶场 关卡 13 :  命令执行 - bash终端的无字母命令执行_无字母_2 --- 
+
     题目已经拥有成熟脚本：https://github.com/ProbiusOfficial/bashFuck
     你也可以使用在线生成：https://probiusofficial.github.io/bashFuck/
     题目本身也提供一个/exp 方便你使用
@@ -31,17 +41,6 @@ def terminal():
 
 TEMPLATE = """
 <!doctype html>
-/*
-# -*- coding: utf-8 -*-
-# @Author: 探姬
-# @Date:   2024-08-11 14:34
-# @Repo:   github.com/ProbiusOfficial/RCE-labs
-# @email:  admin@hello-ctf.com
-# @link:   hello-ctf.com
-
---- HelloCTF - RCE靶场 关卡 13 :  命令执行 - bash终端的无字母命令执行_无字母_2 --- 
-
-*/
 <html lang="en">
   <head>
     <meta charset="utf-8">

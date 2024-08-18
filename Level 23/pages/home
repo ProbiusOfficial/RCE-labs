@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RCE Challenge - HelloCTF</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        h2 {
+            font-size: 20px;
+            color: #555;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .metadata {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>HelloCTF - RCE靶场 关卡 23 :  PHP - 模板注入导致的RCE</h2>
+    <p class="metadata">
+        @Author: 探姬<br>
+        @Date: 2024-08-18 14:34<br>
+        @Repo: github.com/ProbiusOfficial/RCE-labs<br>
+        @Email:admin@hello-ctf.com<br>
+        @Link: https://hello-ctf.com<br>
+        @ModifiedFrom:idekCTF2024 - Untitled-smarty-challenge<br>
+    </p>
+    <p>We're using Smarty 5, with open_basedir, AND don't even pass user input directly into a template, surely this isn't insecure. Oh wait...</p>
+    <h3>The Source:</h3>
+
+    <pre><code class="language-php">
+require 'vendor/autoload.php';
+use Smarty\Smarty;
+$smarty = new Smarty();
+
+if (isset($_GET['page']) && gettype($_GET['page']) === 'string') {
+    $file_path = "file://" . getcwd() . "/pages/" . $_GET['page'];
+    $smarty->display($file_path);
+} else {
+    header('Location: /?page=home');
+};
+    </code></pre>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+</body>
+</html>

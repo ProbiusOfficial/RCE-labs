@@ -48,6 +48,8 @@ Level 21 : PHP 特性 - 无参命令执行
 
 Level 22 : PHP 特性 - 取反绕过 
 
+Level 23 : PHP - 模板注入导致的RCE
+
 
 ## WriteUp
 

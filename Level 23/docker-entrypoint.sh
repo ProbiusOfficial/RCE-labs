@@ -23,13 +23,9 @@ else
     INSERT_FLAG="flag{TEST_Dynamic_FLAG}"
 fi
 
-# 将FLAG写入文件 请根据需要修改
+
 echo $INSERT_FLAG | tee /flag
 
-chmod 744 /flag
+mv /flag /flag-$(head -c 6 /dev/urandom | xxd -p)
 
-php-fpm & nginx &
-
-echo "Running..."
-
-tail -F /var/log/nginx/access.log /var/log/nginx/error.log
+php -S 0.0.0.0:80 index.php
