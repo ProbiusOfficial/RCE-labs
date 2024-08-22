@@ -7,7 +7,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 5 :  命令执行 - 终端特性_空字符忽略和通配符 --- 
+--- HelloCTF - RCE靶场 : 命令执行 - 终端特性_空字符忽略和通配符 --- 
 
 在Shell中，单/双引号 "/' 可以用来定义一个空字符串或保护包含空格或特殊字符的字符串。
 例如：echo "$"a 会输出 $a，而 echo $a 会输出变量a的值，当只有""则表示空字符串，Shell会忽略它。

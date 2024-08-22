@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HelloCTF - RCE靶场 关卡 16 :  文件上传导致的RCE</title>
+    <title>HelloCTF - RCE靶场 : 文件上传导致的RCE</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,7 +62,7 @@
 <body>
 
 <div class="upload-container">
-    <h4>HelloCTF - RCE靶场 关卡 16 :  文件上传导致的RCE</h4>
+    <h4>HelloCTF - RCE靶场 : 文件上传导致的RCE</h4>
     <p>默认路径: uploads/</p>
     <form action="" method="post" enctype="multipart/form-data">
         <label for="fileToUpload" class="custom-file-upload">
@@ -83,7 +83,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 17 :  文件上传导致的RCE --- 
+--- HelloCTF - RCE靶场 : 文件上传导致的RCE --- 
 
 */
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

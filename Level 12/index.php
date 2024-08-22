@@ -7,7 +7,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 12 :  命令执行 - bash终端的无字母命令执行_无字母_1 --- 
+--- HelloCTF - RCE靶场 : 命令执行 - bash终端的无字母命令执行_特殊扩展替换任意数字 --- 
 
 题目已经拥有成熟脚本：https://github.com/ProbiusOfficial/bashFuck
 你也可以使用在线生成：https://probiusofficial.github.io/bashFuck/
@@ -15,7 +15,9 @@
 
 本关卡的考点为 $(()) + 取反 构造任意数字
 
-
+echo $(()) -> 0
+echo $((~$(()))) -> -1
+echo $(($((~$(())))$((~$(()))))) -> -2
 
 */
 

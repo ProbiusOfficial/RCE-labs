@@ -8,7 +8,7 @@ session_start();
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 14 :  命令执行 - PHP命令执行函数 --- 
+--- HelloCTF - RCE靶场 : 命令执行 - PHP命令执行函数 --- 
 
 喵喵喵ww https://www.php.net/manual/zh/ref.exec.php
 
@@ -19,7 +19,7 @@ passthru() 函数执行系统命令并将执行结果输出到页面中，支持
 popen() 函数执行系统命令，但返回一个资源类型的变量，需要配合 fread() 函数读取结果。eg：$result = popen('cat /etc/passwd', 'r'); echo fread($result, 100);
 反引号 用于执行系统命令，返回一个字符串类型的变量来存储命令的执行结果。eg：echo \cat /etc/passwd`;`
 
-在该关卡中，你将会从能够执行系统命令的PHP函数中抽取一个，你需要填充函数的内容来执行某些系统命令以获取flag（tip:flag存储在 $flag 中,当然你也可以尝试其他方法）。
+在该关卡中，你将会从能够执行系统命令的PHP函数中抽取一个，你需要填充函数的内容来执行某些系统命令以获取flag（tip:flag存储在 /flag 中,当然你也可以尝试其他方法）。
 
 
 */

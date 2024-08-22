@@ -11,7 +11,7 @@ session_start(); // 开启 session
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 2 :  PHP代码执行函数 --- 
+--- HelloCTF - RCE靶场 : PHP代码执行函数 --- 
 
 除开在一句话木马中最受欢迎用以直接执行PHP代码的 eval() 函数，PHP还有许多 回调函数 也可以直接或者间接的执行PHP代码。
 

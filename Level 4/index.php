@@ -7,7 +7,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 4 :  命令执行 - SHELL 运算符 --- 
+--- HelloCTF - RCE靶场 : 命令执行 - SHELL 运算符 --- 
 
 https://www.runoob.com/linux/linux-shell-basic-operators.html
 

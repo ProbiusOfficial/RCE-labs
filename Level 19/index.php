@@ -7,7 +7,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 19 :  HP 特性 - 动态调用 --- 
+--- HelloCTF - RCE靶场 : HP 特性 - 动态调用 --- 
 
 PHP 支持在运行时动态构建并且调用函数，在下面的代码中 a可以被作为函数，b可以被作为函数的参数。
 

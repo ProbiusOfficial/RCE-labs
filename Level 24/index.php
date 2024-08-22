@@ -7,7 +7,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 24 :  PHP 特性 - 无字母数字的代码执行 --- 
+--- HelloCTF - RCE靶场 : PHP 特性 - 无字母数字的代码执行 --- 
 
 参考和依据的文章：https://xz.aliyun.com/t/8107
 

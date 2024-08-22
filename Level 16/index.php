@@ -7,7 +7,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 16 :  文件写入导致的RCE --- 
+--- HelloCTF - RCE靶场 : 文件写入导致的RCE --- 
 
 https://www.php.net/manual/zh/function.file-put-contents.php
 

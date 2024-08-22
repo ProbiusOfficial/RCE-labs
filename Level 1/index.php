@@ -8,7 +8,7 @@ include ("get_flag.php");
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 1 :  一句话木马和代码执行 --- 
+--- HelloCTF - RCE靶场 : 一句话木马和代码执行 --- 
 
 「代码执行(Code Execution)」 在某个语言中，通过一些方式(通常为函数或者方法调用)执行该语言的任意代码的行为，如PHP中的`eval()`函数或Python中的`exec()`函数。
 

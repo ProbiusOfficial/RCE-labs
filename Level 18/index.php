@@ -7,7 +7,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 18 :  文件包含导致的RCE --- 
+--- HelloCTF - RCE靶场 : 文件包含导致的RCE --- 
 
 allow_url_fopen = On
 allow_url_include = On

@@ -8,7 +8,7 @@ error_reporting(0);
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 20 :  PHP 特性 - 自增 --- 
+--- HelloCTF - RCE靶场 : PHP 特性 - 自增 --- 
 
 可用字符：! $ ' ( ) + , . / ; = [ ] _
 

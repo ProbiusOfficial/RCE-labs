@@ -8,7 +8,7 @@ include ("get_flag.php");
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 0 :  代码执行&命令执行 --- 
+--- HelloCTF - RCE靶场 : 代码执行&命令执行 --- 
 
 欢迎来到 RCE-labs —— 命令/代码执行靶场的第一个关卡，在开始之前，容我稍微介绍下一些前置知识：
 

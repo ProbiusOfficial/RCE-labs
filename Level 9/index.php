@@ -7,7 +7,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 9 :  命令执行 - bash终端的无字母命令执行_$'\xxx' ---
+--- HelloCTF - RCE靶场 : 命令执行 - bash终端的无字母命令执行_八进制转义 ---
 
 题目已经拥有成熟脚本：https://github.com/ProbiusOfficial/bashFuck
 你也可以使用在线生成：https://probiusofficial.github.io/bashFuck/

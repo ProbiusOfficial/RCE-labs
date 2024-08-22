@@ -7,7 +7,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 15 :  命令执行 - 环境变量注入 --- 
+--- HelloCTF - RCE靶场 : 命令执行 - 环境变量注入 --- 
 
 来源：P牛2022的文章【我是如何利用环境变量注入执行任意命令】https://www.leavesongs.com/PENETRATION/how-I-hack-bash-through-environment-injection.html
 

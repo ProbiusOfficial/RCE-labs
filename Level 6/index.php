@@ -7,7 +7,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 6 :  挑战关 --- 
+--- HelloCTF - RCE靶场 : 挑战关 --- 
 
 刚才，学了什么来着！？
 

@@ -7,7 +7,7 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 关卡 22 :  PHP 特性 - 取反绕过 --- 
+--- HelloCTF - RCE靶场 : PHP 特性 - 取反绕过 --- 
 
 注*：推荐先完成 无参命令注入部分题目 后再来尝试这一题。
 

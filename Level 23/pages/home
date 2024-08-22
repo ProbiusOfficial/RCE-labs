@@ -28,7 +28,7 @@
 </head>
 <body>
 
-    <h2>HelloCTF - RCE靶场 关卡 23 :  PHP - 模板注入导致的RCE</h2>
+    <h2>HelloCTF - RCE靶场 : PHP - 模板注入导致的RCE</h2>
     <p class="metadata">
         @Author: 探姬<br>
         @Date: 2024-08-18 14:34<br>
