@@ -1,12 +1,9 @@
 #!/bin/sh
 
-rm -f /docker-entrypoint.sh
-
 # Get the user
 user=$(ls /home)
 
 # Check the environment variables for the flag and assign to INSERT_FLAG
-# 需要注意，以下语句会将FLAG相关传递变量进行覆盖，如果需要，请注意修改相关操作
 if [ "$DASFLAG" ]; then
     INSERT_FLAG="$DASFLAG"
     export DASFLAG=no_FLAG
@@ -26,10 +23,12 @@ fi
 # 将FLAG写入文件 请根据需要修改
 echo $INSERT_FLAG | tee /flag
 
+# 控制flag和项目源码的权限
 chmod 744 /flag
+chmod 740 /app/*
 
-php-fpm & nginx &
+# 启动flask，并同时开启debug模式
+# cd /app && flask --debug run -h 0.0.0.0 -p 8080
 
-echo "Running..."
-
-tail -F /var/log/nginx/access.log /var/log/nginx/error.log
+# 在无debug参数下启动flask
+cd /app && flask run -h 0.0.0.0 -p 8080
