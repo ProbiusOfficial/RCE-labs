@@ -7,7 +7,6 @@ LABEL auther_template="CTF-Archives"
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories  &&\
     apk add --update --no-cache nginx bash
 
-
 # 拷贝容器入口点脚本
 COPY ./service/docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
@@ -20,8 +19,7 @@ COPY ./config/nginx.conf /etc/nginx/nginx.conf
 COPY *.php /var/www/html/
 
 # 重新设置源码路径的用户所有权
-RUN mkdir -p /var/www/html/uploads && \
-    chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html
  
 # 设置shell的工作目录
 WORKDIR /var/www/html

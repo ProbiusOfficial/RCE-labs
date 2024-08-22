@@ -1,18 +1,26 @@
-FROM php:8.2.12-cli-alpine
-
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-
-COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-
-WORKDIR /app
-
-COPY ./index.php ./
-ADD pages ./pages/
+FROM php:7.3-apache
 
 
-RUN composer require smarty/smarty symfony/symfony
+WORKDIR /var/www/html
 
-COPY ./openbdir.ini /usr/local/etc/php/conf.d/openbdir.ini
+COPY *.php /var/www/html/
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+# 重新设置源码路径的用户所有权
+RUN chown -R www-data:www-data /var/www/html
+RUN mkdir -p /var/log/apache2 && \
+    chown -R www-data:www-data /var/log/apache2
+
+
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+
+COPY ./configs/apache2.conf /etc/apache2/apache2.conf
+COPY ./configs/app.conf /etc/apache2/sites-enabled/000-default.conf
+COPY ./configs/php.ini  /usr/local/etc/php/conf.d/custom.ini
+
+
+ENTRYPOINT ["entrypoint.sh"]
+
+
+CMD ["apache2-foreground"]

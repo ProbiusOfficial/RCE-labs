@@ -1,80 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HelloCTF - RCE靶场 : 文件上传导致的RCE</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .upload-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-        .upload-container h2 {
-            color: #007BFF;
-            margin-bottom: 20px;
-        }
-        .custom-file-upload {
-            display: inline-block;
-            padding: 8px 20px;
-            cursor: pointer;
-            background-color: #007BFF;
-            color: white;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        #fileToUpload {
-            display: none;
-        }
-        .upload-container input[type="submit"] {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 15px;
-        }
-        .upload-container input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        .message {
-            margin-top: 20px;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-
-<div class="upload-container">
-    <h4>HelloCTF - RCE靶场 : 文件上传导致的RCE</h4>
-    <p>默认路径: uploads/</p>
-    <form action="" method="post" enctype="multipart/form-data">
-        <label for="fileToUpload" class="custom-file-upload">
-            选择文件
-        </label>
-        <input type="file" name="fileToUpload" id="fileToUpload">
-        <br>
-        <input type="submit" value="上传文件" name="submit">
-    </form>
-
-    <div class="message">
-    <?php
+<?php 
+session_start(); 
 /*
 # -*- coding: utf-8 -*-
 # @Author: 探姬
@@ -83,26 +8,69 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 : 文件上传导致的RCE --- 
+--- HelloCTF - RCE靶场 : 命令执行 - PHP命令执行函数 --- 
+
+喵喵喵ww https://www.php.net/manual/zh/ref.exec.php
+
+system() 函数用于在系统权限允许的情况下执行系统命令（Windows 和 Linux 系统均可执行）。eg：system('cat /etc/passwd');
+exec() 函数可以执行系统命令，但不会直接输出结果，而是将结果保存到数组中。eg：exec('cat /etc/passwd', $result); print_r($result);
+shell_exec() 函数执行系统命令，但返回一个字符串类型的变量来存储系统命令的执行结果。eg：echo shell_exec('cat /etc/passwd');
+passthru() 函数执行系统命令并将执行结果输出到页面中，支持二进制数据。eg：passthru('cat /etc/passwd');
+popen() 函数执行系统命令，但返回一个资源类型的变量，需要配合 fread() 函数读取结果。eg：$result = popen('cat /etc/passwd', 'r'); echo fread($result, 100);
+反引号 用于执行系统命令，返回一个字符串类型的变量来存储命令的执行结果。eg：echo \cat /etc/passwd`;`
+
+在该关卡中，你将会从能够执行系统命令的PHP函数中抽取一个，你需要填充函数的内容来执行某些系统命令以获取flag（tip:flag存储在 /flag 中,当然你也可以尝试其他方法）。
+
 
 */
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $target_dir = "uploads/";
-        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+function hello_ctf($function, $content){
+    if($function == '``'){
+        $code = '`'.$content.'`';
+        echo "Your Code: $code <br>";
+        eval("echo $code");
+    }else
+    {
+        $code = $function . "(" . $content . ");";
+        echo "Your Code: $code <br>";
+        eval($code);
+    } 
+    
+}
 
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            echo "文件 ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " 已成功上传.";
-        } elseif (!isset($_FILES["fileToUpload"])) {
-            echo "请先选择要上传的文件.";
-        } else {
-            echo "抱歉，文件上传失败.";
-        }
+function get_fun(){
+
+    $func_list = ['system', 'exec', 'shell_exec', 'passthru', 'popen','``'];
+
+    if (!isset($_SESSION['random_func'])) {
+        $_SESSION['random_func'] = $func_list[array_rand($func_list)];
     }
-    ?>
-    </div>
-</div>
+    
+    $random_func = $_SESSION['random_func'];
 
-</body>
-</html>
+    $url_fucn = preg_replace('/_/', '-', $_SESSION['random_func']);
 
+    echo $random_func == '``' ? "获得隐藏运算符: 执行运算符 ，去 https://www.php.net/manual/zh/language.operators.execution.php 详情。<br>" : "获得新的函数: $random_func ，去 https://www.php.net/manual/zh/function.".$url_fucn.".php 查看函数详情。<br>";
 
+    return $_SESSION['random_func'];
+}
+
+function start($act){
+
+    $random_func = get_fun();
+    
+    if($act == "r"){ /* 通过发送GET ?action=r 的方式可以重置当前选中的函数 —— 或者你可以自己想办法可控它x */
+        session_unset();
+        session_destroy(); 
+    }
+
+    if ($act == "submit"){
+        $user_content = $_POST['content']; 
+        hello_ctf($random_func, $user_content);
+    }
+}
+
+isset($_GET['action']) ? start($_GET['action']) : '';
+
+highlight_file(__FILE__);
+
+?>

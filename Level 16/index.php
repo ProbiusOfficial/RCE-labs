@@ -7,21 +7,18 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 : 文件写入导致的RCE --- 
-
-https://www.php.net/manual/zh/function.file-put-contents.php
-
-参考可以写入的内容：
-<?php @eval($_POST['a']); ?>
+--- HelloCTF - RCE靶场 : 命令执行 - 长度限制_4字符RCE --- 
 
 */
 
-function helloctf($code){
-    $code = "file_put_contents(".$code.");";
-    eval($code);
+$sandbox = '/www/sandbox/' . md5("orange" . $_SERVER['REMOTE_ADDR']);
+@mkdir($sandbox);
+@chdir($sandbox);
+if (isset($_GET['cmd']) && strlen($_GET['cmd']) <= 4) {
+    @exec($_GET['cmd']);
+} else if (isset($_GET['reset'])) {
+    @exec('/bin/rm -rf ' . $sandbox);
 }
-
-isset($_GET['c']) ? helloctf($_GET['c']) : '';
 
 highlight_file(__FILE__);
 

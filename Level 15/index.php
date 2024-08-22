@@ -7,17 +7,19 @@
 # @email:  admin@hello-ctf.com
 # @link:   hello-ctf.com
 
---- HelloCTF - RCE靶场 : 命令执行 - 环境变量注入 --- 
+--- HelloCTF - RCE靶场 : 命令执行 - 长度限制_5字符RCE --- 
 
-来源：P牛2022的文章【我是如何利用环境变量注入执行任意命令】https://www.leavesongs.com/PENETRATION/how-I-hack-bash-through-environment-injection.html
+
 
 */
-foreach($_REQUEST['envs'] as $key => $val) {
-    putenv("{$key}={$val}");
+$sandbox = '/www/sandbox/' . md5("orange" . $_SERVER['REMOTE_ADDR']);
+@mkdir($sandbox);
+@chdir($sandbox);
+if (isset($_GET['cmd']) && strlen($_GET['cmd']) <= 5) {
+    @exec($_GET['cmd']);
+} else if (isset($_GET['reset'])) {
+    @exec('/bin/rm -rf ' . $sandbox);
 }
-
-system('echo hello');
-
 highlight_file(__FILE__);
 
 ?>
