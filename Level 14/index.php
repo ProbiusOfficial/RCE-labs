@@ -12,7 +12,7 @@
 
 */
 
-if(strlen($_GET[1]<8)){
+if(isset($_GET[1]) && strlen($_GET[1]) < 8){
     echo strlen($_GET[1]);
     echo '<hr/>';
     echo shell_exec($_GET[1]);
