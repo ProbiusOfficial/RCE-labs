@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in {0..22}; do
+for i in {0..27}; do
     dir="Level ${i}"
     tag="rce_labs:v${i}"
     echo "Building $tag from $dir"
