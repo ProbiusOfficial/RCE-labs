@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-for /l %%i in (0, 1, 22) do (
+for /l %%i in (0, 1, 27) do (
     set dir=Level %%i
     set tag=rce_labs:v%%i
     echo Building !tag! from !dir!
