@@ -27,6 +27,10 @@ RUN chown -R www-data:www-data /var/www/html
 # 设置shell的工作目录
 WORKDIR /var/www/html
 
+# 根据题目提前创建沙盒目录并授权
+RUN mkdir -p /www/sandbox
+RUN chown -R www-data:www-data /www
+
 # [可选]指定对外暴露端口，对于GZCTF等平台，强制EXPOSE可能会造成非预期端口泄露，请酌情启用
 # EXPOSE 80
 
