@@ -5,7 +5,7 @@ LABEL auther_template="CTF-Archives"
 
 # 安装必要的软件包
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories  &&\
-    apk add --update --no-cache nginx bash
+    apk add --update --no-cache nginx bash coreutils
 
 #修改指向
 RUN ln -sf /bin/bash /bin/sh
