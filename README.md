@@ -34,8 +34,19 @@
 | Level 27| RCE类型                          | 模板注入导致的RCE                                |
 
 
+## 题目部署
 
+### 本地部署
+clone 本项目：
+```bash
+git clone https://github.com/ProbiusOfficial/RCE-labs.git
+```
+基于系统选择使用build.bat/build.sh部署，然后使用docker启动对应关卡即可。
 
+### 合作平台
+题目已上线 [【NSSCTF平台】](https://www.nssctf.cn/problem) 可在来源中选择 **HelloCTF** 或直接搜索 **RCE-labs**：
+
+![QQ_1742633138562](https://github.com/user-attachments/assets/1f10cb12-dc94-4354-b391-182c002ed62a)
 
 
 
