@@ -46,8 +46,11 @@ git clone https://github.com/ProbiusOfficial/RCE-labs.git
 ### 合作平台
 题目已上线 [【NSSCTF平台】](https://www.nssctf.cn/problem) 可在来源中选择 **HelloCTF** 或直接搜索 **RCE-labs**：
 
+题目已上线 [【青少年CTF平台】](https://www.qsnctf.com/) 可选择分类中的 **训练/靶场** 或直接搜索 **RCE-labs**：
+
 ![QQ_1742633138562](https://github.com/user-attachments/assets/1f10cb12-dc94-4354-b391-182c002ed62a)
 
+![image](https://github.com/user-attachments/assets/c21d0880-2b18-40b6-9e42-8416c1097335)
 
 
 ## WriteUp
