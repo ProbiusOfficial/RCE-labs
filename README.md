@@ -48,6 +48,10 @@ git clone https://github.com/ProbiusOfficial/RCE-labs.git
 
 题目已上线 [【青少年CTF平台】](https://www.qsnctf.com/) 可选择分类中的 **训练/靶场** 或直接搜索 **RCE-labs**：
 
+题目已上线 [【CTFPLUS】](https://www.ctfplus.cn/learning/problem/excellent-problemSet/detail/1911706025656848384) 题集或前往[公开题目](https://www.ctfplus.cn/learning/problem/problem-bank)搜索标签 RCE-labs 或直接搜索 RCE-labs：
+
+![47c1f88bb8932839695bb86a50c4fa8f](https://github.com/user-attachments/assets/7c970ee0-186b-4281-8f0a-eace7d905993)
+
 ![QQ_1742633138562](https://github.com/user-attachments/assets/1f10cb12-dc94-4354-b391-182c002ed62a)
 
 ![image](https://github.com/user-attachments/assets/c21d0880-2b18-40b6-9e42-8416c1097335)
